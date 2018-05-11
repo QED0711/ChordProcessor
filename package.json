@@ -1,0 +1,15 @@
+{
+  "name": "chordprocessor",
+  "version": "1.0.0",
+  "description": "Builds chords based on computed series of intervals",
+  "main": "IntervalStructure.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Quinn Dizon",
+  "license": "ISC",
+  "dependencies": {
+    "get-unique-permutations": "^1.0.0",
+    "prompt": "^1.0.0"
+  }
+}
