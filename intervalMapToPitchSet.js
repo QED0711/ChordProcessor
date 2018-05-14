@@ -1,5 +1,5 @@
 
-const setNums = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+// const setNums = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 function hasDuplicates(arr){
     return (new Set(arr)).size !== arr.length
