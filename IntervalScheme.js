@@ -1,6 +1,6 @@
 let fetchJSON = require("./fetchJSON");
+let toStructureArr = require('./toStructureArr')
 let intervalMapToPitchSet = require("./intervalMapToPitchSet");
-let toVector = require('./toVector');
 
 
 class IntervalScheme {
@@ -11,9 +11,20 @@ class IntervalScheme {
         this.encryption = scheme
 
         scheme.length <= 6 ? this.size = scheme.length : this.size = 6;
-        this.type(); // sets the type as binary, ternary, quarternary, quinary or senary
+        this.type(); // sets this.structureType to binary, ternary, quarternary, quinary or senary
         this.__intervalStructure = fetchJSON(`./json/${this.structureType}-simplified.json`);
     }
+
+    // this is not needed if a new IntervalScheme is created on each user submission
+
+    // adjustEncryption(scheme){
+    //     scheme = new Set(scheme)
+    //     scheme = [...scheme]
+    //     this.encryption = scheme
+    //     scheme.length <= 6 ? this.size = scheme.length : this.size = 6;
+    //     this.type();
+    //     this.__intervalStructure = toStructureArr(fetchJSON(this.structureType));
+    // }
 
     type(){
         switch(this.size){
@@ -78,8 +89,8 @@ class IntervalScheme {
 
 // console.time("Fetch & Convert")
 
-// let test = new IntervalScheme([5, 4, 6, 2]);
-// test.mappedScheme().forEach(chord => console.log(toVector(chord)));
+// // let test = new IntervalScheme([6, 3]);
+// // console.log(test.mappedScheme().length)
 
 // console.timeEnd("Fetch & Convert")
 
