@@ -1,27 +1,125 @@
 const VF = Vex.Flow;
-// const toNoteObj = require('./toNoteObj');
 
-// Create an SVG renderer and attach it to the DIV element named "boo".
-var div = document.getElementById("boo")
-var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
 
-// Configure the rendering context.
-renderer.resize(600, 300); // width, height
-var context = renderer.getContext();
-context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
-// Create a stave of width 400 at position 10, 40 on the canvas.
-var topStaff = new VF.Stave(0,0, 500); // x, y, width
-var bottomStaff = new VF.Stave(0, 75, 500)
-// Add a clef and time signature.
-topStaff.addClef("treble")
-bottomStaff.addClef("bass")
-var brace = new Vex.Flow.StaveConnector(topStaff, bottomStaff).setType(1);
+// set global arrays for bass and treble notes. This is so that both toPitchNames() & renderNotes have access to these
+let bassNotes = [];
+let trebleNotes = [];
 
-// Connect it to the rendering context and draw!
-topStaff.setContext(context).draw();
-bottomStaff.setContext(context).draw();
-brace.setContext(context).draw();
+function renderNotes(chord){
+    // clear the bassNotes and trebleNotes arrays for a new input
+    bassNotes = [];
+    trebleNotes = [];
+    
+    // delete and then re-add the id="notation" div to the dom 
+    if(document.getElementById("notation")){
+        document.getElementById("notation").remove();
+    }
+    let container = document.getElementById("notation-container")
+    let newNode = document.createElement('div')
+    newNode.setAttribute('id', 'notation')
+    container.appendChild(newNode);
+    let notation = document.getElementById("notation");
+    
+    // VF Staff Setup
+    // create and configure the rendering context
+    let renderer = new VF.Renderer(notation, VF.Renderer.Backends.SVG);
+    renderer.resize(600, 300); // width, height
+    let context = renderer.getContext();
+    context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
+    // Create your staff system. Add clefs and left brace
+    let topStaff = new VF.Stave(0,0, 500); // x, y, width
+    let bottomStaff = new VF.Stave(0, 75, 500)
+    topStaff.addClef("treble")
+    bottomStaff.addClef("bass")
+    let brace = new Vex.Flow.StaveConnector(topStaff, bottomStaff).setType(1);
+    // Connect staves to rendering context and draw
+    topStaff.setContext(context).draw();
+    bottomStaff.setContext(context).draw();
+    brace.setContext(context).draw();
+    
+    // setup for note rending in VF
+    let numOfPitches = chord.length
+    toNoteObj(chord); // side-effect converts chord array to chord-name array
+    // set bass and treble voices from the bassNotes and trebleNotes arrays, and add those to the created staff 
+    let bassVoice = new VF.Voice({num_beats: numOfPitches,  beat_value: 1});
+    bassVoice.addTickables(bassNotes);
+    let trebleVoice = new VF.Voice({num_beats: numOfPitches,  beat_value: 1});
+    trebleVoice.addTickables(trebleNotes);
+    // join the two voices together
+    let formatter = new VF.Formatter().joinVoices([bassVoice, trebleVoice]).format([bassVoice, trebleVoice], 400);
+    // draw the voices on the staff
+    trebleVoice.draw(context,topStaff);
+    bassVoice.draw(context, bottomStaff);
+}
+
+
+// converts a midi number to a string with pitch name and octave designation (60 = C4)
+function toPitchName(note){
+    const names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']   
+    let octave = -1; //offset to -1 so that middle C is C/4
+     while(!names[note]){
+         note -= 12;
+         octave += 1
+     }
+     return names[note] + "/" + octave;
+ }
+ 
+ function toNoteObj(chord){
+     // Fill treble and bass arrays with GhostNotes to the length of the input chord
+     chord.forEach((note)=>{
+         trebleNotes.push(new VF.GhostNote({duration: "w"}));
+         bassNotes.push(new VF.GhostNote({duration: "w"}));
+     })
+     
+     // For each note of the chord, assign it to bass or treble staff. Add a # if necessary.
+     // finally, push the new object to the bassNotes or trebleNotes array.
+     for(let i = 0; i < chord.length; i++){
+         if(chord[i] < 60){ // to bass staff
+             let note = toPitchName(chord[i]);
+             if(note.match("#")){
+                 bassNotes[i] = new VF.StaveNote({clef: "bass", keys: [note], duration: "w"}).addAccidental(0, new VF.Accidental("#"))
+             } else {
+                 bassNotes[i] = new VF.StaveNote({clef: "bass", keys: [note], duration: "w"})
+             }
+         } else { // to treble staff
+             let note = toPitchName(chord[i]);
+             if(note.match("#")){
+                 trebleNotes[i] = new VF.StaveNote({clef: "treble", keys: [note], duration: "w"}).addAccidental(0, new VF.Accidental("#"))
+             } else {
+                 trebleNotes[i] = new VF.StaveNote({clef: "treble", keys: [note], duration: "w"})
+             }
+         }
+     } 
+ }
+
+
+ renderNotes([60, 61,62,63,64,65,66,67,68,69,70,71]) // put it all together
+
+
+ // const toNoteObj = require('./toNoteObj');
+
+// // Create an SVG renderer and attach it to the DIV element named "boo".
+// var div = document.getElementById("notation")
+// var renderer = new VF.Renderer(div, VF.Renderer.Backends.SVG);
+
+// // Configure the rendering context.
+// renderer.resize(600, 300); // width, height
+// var context = renderer.getContext();
+// context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
+
+// // Create a stave of width 400 at position 10, 40 on the canvas.
+// var topStaff = new VF.Stave(0,0, 500); // x, y, width
+// var bottomStaff = new VF.Stave(0, 75, 500)
+// // Add a clef and time signature.
+// topStaff.addClef("treble")
+// bottomStaff.addClef("bass")
+// var brace = new Vex.Flow.StaveConnector(topStaff, bottomStaff).setType(1);
+
+// // Connect it to the rendering context and draw!
+// topStaff.setContext(context).draw();
+// bottomStaff.setContext(context).draw();
+// brace.setContext(context).draw();
 
 
 
@@ -76,81 +174,3 @@ brace.setContext(context).draw();
   // Render voice
   // trebleVoice.draw(context,topStaff);
   // bassVoice.draw(context, bottomStaff);
-  let bassNotes = []
-  let trebleNotes = [];
-  function renderNotes(chord){
-    let numOfPitches = chord.length
-    
-    toNoteObj(chord);
-    console.log(bassNotes, trebleNotes)
-
-    let bassVoice = new VF.Voice({num_beats: numOfPitches,  beat_value: 1});
-    bassVoice.addTickables(bassNotes);
-    let trebleVoice = new VF.Voice({num_beats: numOfPitches,  beat_value: 1});
-    trebleVoice.addTickables(trebleNotes);
-    
-    let formatter = new VF.Formatter().joinVoices([bassVoice, trebleVoice]).format([bassVoice, trebleVoice], 400);
-
-    trebleVoice.draw(context,topStaff);
-    bassVoice.draw(context, bottomStaff);
-  }
-
-  renderNotes([36, 52])
-
-  /* 
-  toDo:
-  create a function toNoteObj(chord) 
-  - this function should take a chord array (e.g. [0,1,6]) and convert it to a note object that VF understands. 
-  - based on the range of the given note in the chord, it should be assigned to either bass or treble staves.
-  - any notes not assiged to bass/treble staves should have the placeholder of new VF.GhostNote({duration: "w"})
-  - if a note requies an eccidental, it should place the .addAccidental method on the note object
-
-    1. make two arrays: BassNotes & trebleNotes
-    2. for the length of the chord, fill each of these arrays with new VF.GhostNote({duration: "w"}).
-    3. iterate through the chord and. For each pitch, assign it to either the bass or treble arrays based on its range
-      - below middle C goes to bass, middle C and above goes to treble. 
-    4. if a note comes through with an accidental, append .addAccidental(0, new VF.Accidental("#")) to the note object
-  
-  */
-
-
- const names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
-
- function toPitchName(note){
-    const names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']   
-    let octave = -1; //offset to -1 so that middle C is C/4
-     while(!names[note]){
-         note -= 12;
-         octave += 1
-     }
-     return names[note] + "/" + octave;
- }
- 
- function toNoteObj(chord){
-     // make treble and bass arrays and fill with GhostNotes to the length of the input chord
-     // let trebleStaff = [], bassStaff = [];
-     chord.forEach((note)=>{
-         trebleNotes.push(new VF.GhostNote({duration: "w"}));
-         bassNotes.push(new VF.GhostNote({duration: "w"}));
-     })
-     
-     const names = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
-     
-     for(let i = 0; i < chord.length; i++){
-         if(chord[i] < 60){
-             let note = toPitchName(chord[i]);
-             if(note.match("#")){
-                 bassNotes[i] = new VF.StaveNote({clef: "bass", keys: [note], duration: "w"}).addAccidental(0, new VF.Accidental("#"))
-             } else {
-                 bassNotes[i] = new VF.StaveNote({clef: "bass", keys: [note], duration: "w"})
-             }
-         } else {
-             let note = toPitchName(chord[i]);
-             if(note.match("#")){
-                 trebleNotes[i] = new VF.StaveNote({clef: "treble", keys: [note], duration: "w"}).addAccidental(0, new VF.Accidental("#"))
-             } else {
-                 trebleNotes[i] = new VF.StaveNote({clef: "treble", keys: [note], duration: "w"})
-             }
-         }
-     } 
- }
