@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "get-unique-permutations": "^1.0.0",
-    "prompt": "^1.0.0"
+    "prompt": "^1.0.0",
+    "vexflow": "^1.2.84"
   }
 }
