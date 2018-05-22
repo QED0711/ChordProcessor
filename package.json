@@ -12,5 +12,8 @@
     "get-unique-permutations": "^1.0.0",
     "prompt": "^1.0.0",
     "vexflow": "^1.2.84"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.4"
   }
 }

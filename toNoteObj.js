@@ -12,8 +12,6 @@ function toPitchName(note){
     return names[note] + "/" + octave;
 }
 
-// console.log(toPitchName(62))
-
 function toNoteObj(chord){
     // make treble and bass arrays and fill with GhostNotes to the length of the input chord
     // let trebleStaff = [], bassStaff = [];
