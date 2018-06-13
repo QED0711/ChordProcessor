@@ -6,7 +6,7 @@
     <title>Chord Processor</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="./assets/style.css" />
 </head>
 <body>
     <div class="container">
@@ -18,108 +18,122 @@
         </div>
         
         <div class="row form-section">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <p class="input-header">Interval Set</p>
-                <div class="input-group mb-3">
-                    <!-- <div class="input-group-prepend">
-                        <button class="btn btn-outline-secondary" type="button">Calculate</button>
-                    </div> -->
-                    <input type="text" class="form-control" placeholder="e.g. 2 5 8 (M2 P4 m6)" aria-label="" aria-describedby="basic-addon1">
-                </div>
+            <div class="row section-title">
+                <h5>Chord Content</h5>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <p class="input-header">Chord Length</p>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="e.g. 3 5 (3 - 5 note chords)" aria-label="" aria-describedby="basic-addon1">
+            <div class="row form-section">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <p class="input-header">Interval Set</p>
+                    <div class="input-group mb-3">
+                        <!-- <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button">Calculate</button>
+                        </div> -->
+                        <input type="text" id="scheme" class="form-control" placeholder="e.g. 2 5 8 (M2 P4 m6)" aria-label="" aria-describedby="basic-addon1">
+                    </div>
                 </div>
-            </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <p class="input-header">Chord Length</p>
+                    <div class="input-group mb-3">
+                        <input type="text" id="chord-length" class="form-control" placeholder="e.g. 3 5 (3 - 5 note chords)" aria-label="" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+                
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <p class="input-header">Included Pitches</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input">
+                            </div>
+                            </div>
+                        <input type="text" id="contains" class="form-control" aria-label="Text input with checkbox">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <p class="input-header">Excluded Pitches</p>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input">
+                            </div>
+                            </div>
+                        <input type="text" id="not-contains" class="form-control" aria-label="Text input with checkbox">
+                    </div>
+                </div> 
             
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <p class="input-header">Included Pitches</p>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </div>
-                        </div>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox">
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <p class="input-header">Excluded Pitches</p>
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <input type="checkbox" aria-label="Checkbox for following text input">
-                        </div>
-                        </div>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox">
-                </div>
-            </div>   
                        
             </div>
             <div class="row form-section">
-                <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
-                    <p class="input-header">m2/M7</p>
-                    <form>
-                        <input type="radio" name="m2" id="m2-inactive" class="vector-radio" checked> <label><em>Inactive</em></label> <br>
-                        <input type="radio" name="m2" id="m2-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                        <input type="radio" name="m2" id="m2-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                        <input type="radio" name="m2" id="m2-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
-                    </form>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                <div class="row section-title" >
+                    <h5>Vector Filters:</h5>
                 </div>
-                <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
-                    <p class="input-header">M2/m7</p>
-                    <form>
-                        <input type="radio" name="M2" id="M2-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
-                        <input type="radio" name="M2" id="M2-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                        <input type="radio" name="M2" id="M2-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                        <input type="radio" name="M2" id="M2-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
-                    </form>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
-                </div>
-                <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
-                    <p class="input-header">m3/M6</p>
-                    <form>
-                        <input type="radio" name="m3" id="m3-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
-                        <input type="radio" name="m3" id="m3-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                        <input type="radio" name="m3" id="m3-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                        <input type="radio" name="m3" id="m3-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
-                    </form>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
-                </div>                
-                <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
-                    <p class="input-header">M3/m6</p>
-                    <form>
-                        <input type="radio" name="M3" id="M3-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
-                        <input type="radio" name="M3" id="M3-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                        <input type="radio" name="M3" id="M3-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                        <input type="radio" name="M3" id="M3-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
-                    </form>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
-                </div>
-                <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
-                    <p class="input-header">P4/P5</p>
-                    <form>
-                        <input type="radio" name="P4" id="P4-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
-                        <input type="radio" name="P4" id="P4-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                        <input type="radio" name="P4" id="P4-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                        <input type="radio" name="P4" id="P4-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
-                    </form>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
-                </div>
-                <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
-                    <p class="input-header">+4/º5</p>
-                    <form>
-                        <input type="radio" name="tritone" id="tritone-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
-                        <input type="radio" name="tritone" id="tritone-exactly" class="vector-<label><em>Exactly</em></label>radio"> <label><em>Exactly</em></label><br>
-                        <input type="radio" name="tritone" id="tritone-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                        <input type="radio" name="tritone" id="tritone-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
-                    </form>
-                    <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                <div class="row form-section">
+                    <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                        <p class="input-header">m2/M7</p>
+                        <form>
+                            <input type="radio" name="m2" id="m2-inactive" class="vector-radio" checked> <label><em>Inactive</em></label> <br>
+                            <input type="radio" name="m2" id="m2-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
+                            <input type="radio" name="m2" id="m2-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="m2" id="m2-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                        </form>
+                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                    </div>
+                    <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                        <p class="input-header">M2/m7</p>
+                        <form>
+                            <input type="radio" name="M2" id="M2-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
+                            <input type="radio" name="M2" id="M2-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
+                            <input type="radio" name="M2" id="M2-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="M2" id="M2-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                        </form>
+                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                    </div>
+                    <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                        <p class="input-header">m3/M6</p>
+                        <form>
+                            <input type="radio" name="m3" id="m3-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
+                            <input type="radio" name="m3" id="m3-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
+                            <input type="radio" name="m3" id="m3-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="m3" id="m3-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                        </form>
+                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                    </div>                
+                    <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                        <p class="input-header">M3/m6</p>
+                        <form>
+                            <input type="radio" name="M3" id="M3-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
+                            <input type="radio" name="M3" id="M3-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
+                            <input type="radio" name="M3" id="M3-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="M3" id="M3-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                        </form>
+                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                    </div>
+                    <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                        <p class="input-header">P4/P5</p>
+                        <form>
+                            <input type="radio" name="P4" id="P4-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
+                            <input type="radio" name="P4" id="P4-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
+                            <input type="radio" name="P4" id="P4-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="P4" id="P4-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                        </form>
+                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                    </div>
+                    <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                        <p class="input-header">+4/º5</p>
+                        <form>
+                            <input type="radio" name="tritone" id="tritone-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
+                            <input type="radio" name="tritone" id="tritone-exactly" class="vector-<label><em>Exactly</em></label>radio"> <label><em>Exactly</em></label><br>
+                            <input type="radio" name="tritone" id="tritone-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="tritone" id="tritone-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                        </form>
+                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                    </div>
                 </div>
             </div> 
+            <div class="row form-section">
+                <button class="btn" id="submit">Get Chords</button>
+            </div>
+        </div>      
             
         <div id="notation-container"></div>
         
@@ -130,8 +144,22 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vexflow/releases/vexflow-min.js"></script>
-    <script src="vfTest.js"></script>
-    <script src="playback.js"></script>
+    <script src="./assets/js/vfTest.js"></script>
+    <script src="./assets/js/playback.js"></script>
+
+    <script src="./assets/schemes/binary.js"></script>
+    
+    <script src="./assets/js/getJSON.js"></script>
+    <!-- 1. create a new interval scheme with a given interval set -->
+        <script src="./assets/js/IntervalScheme.js"></script>
+    <!-- 2. map the scheme to chords via .mapped() method  -->
+    <!-- 3. create a new filter object -->
+        <script src="./assets/js/ChordFilter.js"></script>
+    <!-- 4. Set the new filter contains, notContains and chordSize properties -->
+    <!-- 5. validChords = filter (make a function that takes a filter object and chord set as arguments and returns only valid chords) -->
+        <script src="./assets/js/process.js"></script>
+
+        <script src="./assets/js/button.js"></script>
     
 </body>
 </html>
