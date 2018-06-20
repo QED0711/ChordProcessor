@@ -38,7 +38,7 @@ class IntervalScheme {
 
         scheme.length <= 6 ? this.size = scheme.length : this.size = 6;
         this.type(); // sets this.structureType to binary, ternary, quarternary, quinary or senary
-        this.__intervalStructure = binary; // this is just for test purposes. should dynamically set based on size
+        // this.__intervalStructure = binary; // this is just for test purposes. should dynamically set based on size
     }
 
 

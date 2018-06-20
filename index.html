@@ -28,13 +28,13 @@
                         <!-- <div class="input-group-prepend">
                             <button class="btn btn-outline-secondary" type="button">Calculate</button>
                         </div> -->
-                        <input type="text" id="scheme" class="form-control" placeholder="e.g. 2 5 8 (M2 P4 m6)" aria-label="" aria-describedby="basic-addon1">
+                        <input type="text" id="scheme" class="form-control" placeholder="e.g. 2 5 8 (M2 P4 m6)" value="3 4" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <p class="input-header">Chord Length</p>
                     <div class="input-group mb-3">
-                        <input type="text" id="chord-length" class="form-control" placeholder="e.g. 3 5 (3 - 5 note chords)" aria-label="" aria-describedby="basic-addon1">
+                        <input type="text" id="chord-length" class="form-control" placeholder="e.g. 3 5 (3 - 5 note chords)" value="2 11" aria-label="" aria-describedby="basic-addon1">
                     </div>
                 </div>
                 
@@ -42,20 +42,26 @@
                     <p class="input-header">Included Pitches</p>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">
+                            <!-- <div class="input-group-text">
                                 <input type="checkbox" aria-label="Checkbox for following text input">
-                            </div>
+                            </div> -->
                             </div>
                         <input type="text" id="contains" class="form-control" aria-label="Text input with checkbox">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="tranpositions">
+                        <label class="form-check-label" for="transpositions">
+                          Check Transpositions
+                        </label>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <p class="input-header">Excluded Pitches</p>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">
+                            <!-- <div class="input-group-text">
                                 <input type="checkbox" aria-label="Checkbox for following text input">
-                            </div>
+                            </div> -->
                             </div>
                         <input type="text" id="not-contains" class="form-control" aria-label="Text input with checkbox">
                     </div>
@@ -73,68 +79,96 @@
                         <form>
                             <input type="radio" name="m2" id="m2-inactive" class="vector-radio" checked> <label><em>Inactive</em></label> <br>
                             <input type="radio" name="m2" id="m2-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                            <input type="radio" name="m2" id="m2-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                            <input type="radio" name="m2" id="m2-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                            <input type="radio" name="m2" id="m2-lessThan" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="m2" id="m2-atLeast" class="vector-radio"> <label><em>At Least</em></label><br>
                         </form>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                        <input type="number" class="form-control vectorValue" aria-label="Text input with checkbox" value="0">
                     </div>
                     <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
                         <p class="input-header">M2/m7</p>
                         <form>
                             <input type="radio" name="M2" id="M2-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
                             <input type="radio" name="M2" id="M2-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                            <input type="radio" name="M2" id="M2-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                            <input type="radio" name="M2" id="M2-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                            <input type="radio" name="M2" id="M2-lessThan" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="M2" id="M2-atLeast" class="vector-radio"> <label><em>At Least</em></label><br>
                         </form>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                        <input type="number" class="form-control vectorValue" aria-label="Text input with checkbox" value="0">
                     </div>
                     <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
                         <p class="input-header">m3/M6</p>
                         <form>
                             <input type="radio" name="m3" id="m3-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
                             <input type="radio" name="m3" id="m3-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                            <input type="radio" name="m3" id="m3-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                            <input type="radio" name="m3" id="m3-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                            <input type="radio" name="m3" id="m3-lessThan" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="m3" id="m3-atLeast" class="vector-radio"> <label><em>At Least</em></label><br>
                         </form>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                        <input type="number" class="form-control vectorValue" aria-label="Text input with checkbox" value="0">
                     </div>                
                     <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
                         <p class="input-header">M3/m6</p>
                         <form>
                             <input type="radio" name="M3" id="M3-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
                             <input type="radio" name="M3" id="M3-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                            <input type="radio" name="M3" id="M3-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                            <input type="radio" name="M3" id="M3-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                            <input type="radio" name="M3" id="M3-lessThan" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="M3" id="M3-atLeast" class="vector-radio"> <label><em>At Least</em></label><br>
                         </form>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                        <input type="number" class="form-control vectorValue" aria-label="Text input with checkbox" value="0">
                     </div>
                     <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
                         <p class="input-header">P4/P5</p>
                         <form>
                             <input type="radio" name="P4" id="P4-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
                             <input type="radio" name="P4" id="P4-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
-                            <input type="radio" name="P4" id="P4-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                            <input type="radio" name="P4" id="P4-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                            <input type="radio" name="P4" id="P4-lessThan" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="P4" id="P4-atLeast" class="vector-radio"> <label><em>At Least</em></label><br>
                         </form>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                        <input type="number" class="form-control vectorValue" aria-label="Text input with checkbox" value="0">
                     </div>
                     <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
                         <p class="input-header">+4/º5</p>
                         <form>
                             <input type="radio" name="tritone" id="tritone-inactive" class="vector-radio" checked> <label><em>Inactive</em></label><br>
-                            <input type="radio" name="tritone" id="tritone-exactly" class="vector-<label><em>Exactly</em></label>radio"> <label><em>Exactly</em></label><br>
-                            <input type="radio" name="tritone" id="tritone-less-than" class="vector-radio"> <label><em>Less Than</em></label><br>
-                            <input type="radio" name="tritone" id="tritone-more-than" class="vector-radio"> <label><em>At Least</em></label><br>
+                            <input type="radio" name="tritone" id="tritone-exactly" class="vector-radio"> <label><em>Exactly</em></label><br>
+                            <input type="radio" name="tritone" id="tritone-lessThan" class="vector-radio"> <label><em>Less Than</em></label><br>
+                            <input type="radio" name="tritone" id="tritone-atLeast" class="vector-radio"> <label><em>At Least</em></label><br>
                         </form>
-                        <input type="text" class="form-control" aria-label="Text input with checkbox" placeholder="0">
+                        <input type="number" class="form-control vectorValue" aria-label="Text input with checkbox" value="0">
                     </div>
                 </div>
             </div> 
             <div class="row form-section">
                 <button class="btn" id="submit">Get Chords</button>
             </div>
+        
+        
         </div>      
-            
+        
+      
+
+        <div class="row form-section">
+            <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                <p class="input-header">Display Type</p>
+                <form>
+                    <input type="radio" name="display-type" id="type-expanded" class="display-radio" checked> <label><em>Expanded</em></label> <br>
+                    <input type="radio" name="display-type" id="type-simplified" class="display-radio"> <label><em>Simplified</em></label><br>
+                    <input type="radio" name="display-type" id="type-scale" class="display-radio"> <label><em>Scale</em></label><br>
+                </form>
+            </div>
+            <div class="col-lg-2 col-sm-2 col-md-4 col-xs-6 vector-interval">
+                    <p class="input-header">Octave Offset</p>
+                    <form>
+                        <input type="number" id="octave-offset" value="4" min="0" max="6">
+                        
+                    </form>
+                </div>
+
+                <div class="row form-section">
+                    <button class="btn" id="previous">Previous Chord</button>
+                    <button class="btn" id="next">Next Chord</button>
+                </div>
+        </div>
+       
+       
         <div id="notation-container"></div>
         
     </div>
@@ -158,8 +192,11 @@
     <!-- 4. Set the new filter contains, notContains and chordSize properties -->
     <!-- 5. validChords = filter (make a function that takes a filter object and chord set as arguments and returns only valid chords) -->
         <script src="./assets/js/process.js"></script>
+        <script src="./assets/js/CurrentChord.js"></script>
 
-        <script src="./assets/js/button.js"></script>
+
+        <!-- UI -->
+        <script src="./assets/js/buttons.js"></script>
     
 </body>
 </html>

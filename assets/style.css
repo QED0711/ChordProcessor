@@ -34,7 +34,7 @@ body{
     border-radius: 8px;
 }
 
-#submit{
-    margin-left: 15px;
+.btn{
     background-color: white;
+    margin-left: 15px;
 }

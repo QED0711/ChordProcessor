@@ -44,6 +44,7 @@ class VectorFilter {
 
 	setVector(intervalNum, type, num){
 		this[intervalNum] = {'type' : type, 'value' : num}
+		
 	}
 
 	filter(chordVector){
@@ -55,8 +56,8 @@ class VectorFilter {
 							return false;
 						}
 						break;
-					case('greaterThan'):
-						if(!(chordVector[i] > this[i].value)){
+					case('atLeast'):
+						if(!(chordVector[i] >= this[i].value)){
 							return false;
 						}
 						break;
@@ -75,19 +76,29 @@ class VectorFilter {
 // =================================================================================
 
 class ChordFilter {
-	constructor(){
-		this.contains;
-		this.notContains;
-		this.chordSize = [2, 11];
-		this.vectorFilter = new VectorFilter;
+	constructor(containsArr, notContainsArr, sizeArr, bass, soprano){
+		this.setContainsFilter(containsArr)
+		this.setNotContainsFilter(notContainsArr);
+		this.setChordSize(...sizeArr);
+		this.vectorFilter = new VectorFilter();
+		this.bass = bass;
+		this.soprano = soprano;
 	}
 
 	setContainsFilter(containsArr){
-		this.contains = containsArr;
+		if(typeof containsArr[0] === "number"){
+			this.contains = containsArr.map(x => x);
+		} else {
+			this.contains = [];
+		}		
 	}
 
 	setNotContainsFilter(notContainsArr){
-		this.notContains = notContainsArr;
+		if(typeof notContainsArr[0] === "number"){
+			this.notContains = notContainsArr.map(x => x);
+		} else {
+			this.notContains = [];
+		}
 	}
 
 	setVectorFilter(intervalNum, type, value){
@@ -113,7 +124,7 @@ class ChordFilter {
 	}
 	setChordSize(min, max){
 		if(min < 2 || min > 11 || max < 2 || max > 11){
-			console.err("Invalid Chord Size");
+			console.error("Invalid Chord Size");
 			return;
 		}
 		if(min > max){
@@ -124,10 +135,37 @@ class ChordFilter {
 	}
 
 	chordSizeFilter(chord){
-		return (this.chordSize[0] <= chord.length+1 && this.chordSize[1] >= chord.length+1)
+		return (this.chordSize[0] <= chord.length && this.chordSize[1] >= chord.length)
+	}
+
+	bassFilter(chord){
+		if(this.bass){
+			return chord[0] === this.bass;
+		}
+		return true;
+	}
+
+	sopranoFilter(chord){
+		if(this.soprano){
+			return chord[chord.length-1] === this.soprano
+		}
+		return true;
 	}
 
 	passFilters(chord){
-		return this.containsFilter(chord) && this.notContainsFilter(chord) && this.vectorFilter.filter(toVector(chord)) && this.chordSizeFilter(chord)
+		if(typeof this.contains[0] === 'number'){ // allows for the containsFilter to be empty
+			if(!this.containsFilter(chord)){
+				return false
+			}
+		}
+
+		if(typeof this.notContains[0] === 'number'){ // allows for the notContainsFilter to be empty
+			if(!this.notContainsFilter(chord)){
+				return false
+			}
+		}
+		return this.vectorFilter.filter(toVector(chord)) && this.chordSizeFilter(chord) && this.bassFilter(chord) && this.sopranoFilter(chord);
 	}
 }
+
+// filters to add: Top note, bottom note

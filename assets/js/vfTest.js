@@ -94,7 +94,7 @@ function toPitchName(note){
  }
 
 
- renderNotes([59]) // put it all together
+ renderNotes([]) // put it all together
 
 
  // const toNoteObj = require('./toNoteObj');
